@@ -5,6 +5,8 @@ import Login from './Login';
 import Register from './Register';
 import Home from './Home';
 import Dashboard from './protected/Dashboard/Dashboard';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
 import { logout } from '../helpers/auth';
 import { firebaseAuth } from '../config/constants';
 
@@ -15,38 +17,9 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconButton from 'material-ui/IconButton';
 import LinearProgress from 'material-ui/LinearProgress';
+import CardIcon from 'material-ui/svg-icons/action/card-giftcard';
 
-function PrivateRoute({ component: Component, authed, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authed === true ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: '/login', state: { from: props.location } }}
-          />
-        )
-      }
-    />
-  );
-}
-
-function PublicRoute({ component: Component, authed, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authed === false ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/dashboard" />
-        )
-      }
-    />
-  );
-}
+import './index.css';
 
 export default class App extends Component {
   state = {
@@ -75,13 +48,18 @@ export default class App extends Component {
 
   renderAuthButtons(props) {
     return this.state.authed ? (
-      <FlatButton
-        label="Sign Out"
-        onClick={() => {
-          logout();
-        }}
-        style={{ color: '#fff' }}
-      />
+      <span>
+        <Link to="/dashboard">
+          <FlatButton label="dashboard" style={{ color: '#fff' }} />
+        </Link>
+        <FlatButton
+          label="Sign Out"
+          onClick={() => {
+            logout();
+          }}
+          style={{ color: '#fff' }}
+        />
+      </span>
     ) : (
       <span>
         <Link to="/login">
@@ -95,17 +73,7 @@ export default class App extends Component {
   }
 
   renderTopbarButtons() {
-    return (
-      <div>
-        <Link to="/">
-          <FlatButton label="Home" style={{ color: '#fff' }} />
-        </Link>
-        <Link to="/dashboard">
-          <FlatButton label="dashboard" style={{ color: '#fff' }} />
-        </Link>
-        {this.renderAuthButtons()}
-      </div>
-    );
+    return <div>{this.renderAuthButtons()}</div>;
   }
 
   render() {
@@ -113,10 +81,15 @@ export default class App extends Component {
       <LinearProgress mode="indeterminate" />
     ) : (
       <BrowserRouter>
-        <div className="w-100 h-100">
+        <div className="">
           <AppBar
-            title="FidelizaCard"
+            title={
+              <Link to="/" className="home-link" style={{ color: '#fff' }}>
+                Fideliza Card
+              </Link>
+            }
             iconElementRight={this.renderTopbarButtons()}
+            iconElementLeft={<div />}
             iconStyleRight={{
               display: 'flex',
               alignItems: 'center',

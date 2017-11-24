@@ -18,8 +18,8 @@ const style = {
 };
 
 const bottomNavContainer = {
+  position: 'fixed',
   bottom: 0,
-  position: 'absolute',
   width: '100%',
   height: '70px'
 };
@@ -35,7 +35,7 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-      <div className="w-100 h-100">
+      <div className="w-100 d-flex flex-column justify-content-between" style={{height: '90%'}}>
         {this.renderTab()}
         <Paper zDepth={1} style={bottomNavContainer}>
           <BottomNavigation selectedIndex={this.state.selectedIndex}>
