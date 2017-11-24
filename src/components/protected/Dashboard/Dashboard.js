@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
-
-import FontIcon from 'material-ui/FontIcon';
 import {
   BottomNavigation,
   BottomNavigationItem
 } from 'material-ui/BottomNavigation';
 import Paper from 'material-ui/Paper';
 import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
-import QrCode from 'material-ui/svg-icons/action/important-devices';
-import Reports from 'material-ui/svg-icons/communication/business';
+import QRCodeIcon from 'material-ui/svg-icons/action/important-devices';
+import ReportsIcon from 'material-ui/svg-icons/communication/business';
 
-const ReportsComp = <Reports>Reports</Reports>;
-const QRCodeComp = <QrCode>QR Code</QrCode>;
+import QRCode from '../QRCode/QRCode';
+import Reports from '../Reports/Reports';
 
-const style = {
-  bottomNavContainer
-};
-
-const bottomNavContainer = {
-  position: 'fixed',
-  bottom: 0,
-  width: '100%',
-  height: '70px'
-};
 export default class Dashboard extends Component {
   state = {
     selectedIndex: 0
@@ -30,23 +18,26 @@ export default class Dashboard extends Component {
   select = index => this.setState({ selectedIndex: index });
 
   renderTab = () => {
-    return this.state.selectedIndex === 0 ? <h2>Reports</h2> : <h2>QR Code</h2>;
+    return this.state.selectedIndex === 0 ? <Reports /> : <QRCode />;
   };
 
   render() {
     return (
-      <div className="w-100 d-flex flex-column justify-content-between" style={{height: '90%'}}>
+      <div
+        className="w-100 d-flex flex-column justify-content-between"
+        style={{ height: '90%' }}
+      >
         {this.renderTab()}
-        <Paper zDepth={1} style={bottomNavContainer}>
+        <Paper zDepth={1} style={style.bottomNavContainer}>
           <BottomNavigation selectedIndex={this.state.selectedIndex}>
             <BottomNavigationItem
-              label="Reports"
-              icon={ReportsComp}
+              label="Informações"
+              icon={<ReportsIcon>Informações</ReportsIcon>}
               onClick={() => this.select(0)}
             />
             <BottomNavigationItem
               label="QR Code"
-              icon={QRCodeComp}
+              icon={<QRCodeIcon>QR Code</QRCodeIcon>}
               onClick={() => this.select(1)}
             />
           </BottomNavigation>
@@ -55,3 +46,14 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+const bottomNavContainer = {
+  position: 'fixed',
+  bottom: 0,
+  width: '100%',
+  height: '70px'
+};
+
+const style = {
+  bottomNavContainer
+};

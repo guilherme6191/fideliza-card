@@ -36,17 +36,19 @@ export default class Login extends Component {
         this.setState({ loading: false });
       })
       .catch(error => {
-        this.setState(setErrorMsg('Invalid username/password.'));
+        this.setState(setErrorMsg('Email ou senha inválidos.'));
       });
   };
   resetPassword = () => {
     resetPassword(this.state.email)
       .then(() =>
         this.setState(
-          setErrorMsg(`Password reset email sent to ${this.state.email}.`)
+          setErrorMsg(
+            `Email de restaurar senha enviado para ${this.state.email}.`
+          )
         )
       )
-      .catch(error => this.setState(setErrorMsg(`Email address not found.`)));
+      .catch(error => this.setState(setErrorMsg(`Email não encontrado.`)));
   };
   render() {
     return this.state.loading ? (
@@ -60,14 +62,14 @@ export default class Login extends Component {
       >
         <h3>Login</h3>
         <TextField
-          hintText="Enter your Email"
+          hintText="Digite seu email"
           floatingLabelText="Email"
           onChange={(event, newValue) => this.setState({ email: newValue })}
         />
         <br />
         <TextField
           type="password"
-          hintText="Enter your Password"
+          hintText="Digite sua senha"
           floatingLabelText="Password"
           onChange={(event, newValue) => this.setState({ password: newValue })}
         />
@@ -80,8 +82,12 @@ export default class Login extends Component {
             />
             <span className="sr-only">Error:</span>
             &nbsp;{this.state.loginMessage}{' '}
-            <a href="#" onClick={this.resetPassword} className="alert-link">
-              Forgot Password?
+            <a
+              href="#"
+              onClick={this.resetPassword}
+              className="alert-link small"
+            >
+              Esqueceu a senha?
             </a>
           </div>
         )}

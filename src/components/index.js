@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Link, Switch } from 'react-router-dom';
 
 import Login from './Login';
 import Register from './Register';
@@ -12,12 +12,7 @@ import { firebaseAuth } from '../config/constants';
 
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import IconButton from 'material-ui/IconButton';
 import LinearProgress from 'material-ui/LinearProgress';
-import CardIcon from 'material-ui/svg-icons/action/card-giftcard';
 
 import './index.css';
 
@@ -53,7 +48,7 @@ export default class App extends Component {
           <FlatButton label="dashboard" style={{ color: '#fff' }} />
         </Link>
         <FlatButton
-          label="Sign Out"
+          label="Sair"
           onClick={() => {
             logout();
           }}
@@ -63,10 +58,10 @@ export default class App extends Component {
     ) : (
       <span>
         <Link to="/login">
-          <FlatButton label="Login" style={{ color: '#fff' }} />
+          <FlatButton label="Entrar" style={{ color: '#fff' }} />
         </Link>
         <Link to="/register">
-          <FlatButton label="Register" style={{ color: '#fff' }} />
+          <FlatButton label="Registrar" style={{ color: '#fff' }} />
         </Link>
       </span>
     );

@@ -31,14 +31,14 @@ export default class Register extends Component {
       <form onSubmit={this.handleSubmit} style={style.container}>
         <h3>Register</h3>
         <TextField
-          hintText="Enter your Email"
+          hintText="Digite seu email"
           floatingLabelText="Email"
           onChange={(event, newValue) => this.setState({ email: newValue })}
         />
         <br />
         <TextField
           type="password"
-          hintText="Enter your Password"
+          hintText="Digite sua senha"
           floatingLabelText="Password"
           onChange={(event, newValue) => this.setState({ password: newValue })}
         />
@@ -54,7 +54,7 @@ export default class Register extends Component {
           </div>
         )}
         <RaisedButton
-          label="Register"
+          label="Registrar"
           primary={true}
           style={style.raisedBtn}
           type="submit"

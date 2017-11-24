@@ -1,3 +1,9 @@
+.home-link:focus {
+  text-decoration: none;
+}
 .home-link:hover {
+  text-decoration: none;
+}
+.home-link:active {
   text-decoration: none;
 }
