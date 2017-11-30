@@ -4,6 +4,7 @@ import { login, resetPassword } from '../helpers/auth';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import LinearProgress from 'material-ui/LinearProgress';
+import Loading from './Loading';
 
 function setErrorMsg(error) {
   return {
@@ -31,7 +32,7 @@ export default class Login extends Component {
   handleSubmit = e => {
     e.preventDefault();
     login(this.state.email, this.state.password)
-      .then(() => {
+      .then(x => {
         console.log(this.state);
         this.setState({ loading: false });
       })
@@ -52,7 +53,7 @@ export default class Login extends Component {
   };
   render() {
     return this.state.loading ? (
-      <LinearProgress mode="indeterminate" style={style.progress} />
+      <Loading />
     ) : (
       <form
         style={style.container}

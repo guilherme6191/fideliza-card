@@ -7,7 +7,7 @@ import Home from './Home';
 import Dashboard from './protected/Dashboard/Dashboard';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
-import { logout } from '../helpers/auth';
+import { logout, saveAuthState, clearAuthState } from '../helpers/auth';
 import { firebaseAuth } from '../config/constants';
 
 import AppBar from 'material-ui/AppBar';
@@ -24,11 +24,13 @@ export default class App extends Component {
   componentDidMount() {
     this.removeListener = firebaseAuth().onAuthStateChanged(user => {
       if (user) {
+        saveAuthState(user);
         this.setState({
           authed: true,
           loading: false
         });
       } else {
+        clearAuthState();
         this.setState({
           authed: false,
           loading: false

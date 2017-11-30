@@ -18,7 +18,18 @@ export function resetPassword(email) {
   return firebaseAuth().sendPasswordResetEmail(email);
 }
 
+export function saveAuthState(user) {
+  localStorage.setItem('username', user.name);
+  localStorage.setItem('userUid', user.uid);
+}
+
+export function clearAuthState() {
+  localStorage.removeItem('username');
+  localStorage.removeItem('userUid');
+}
+
 export function saveUser(user) {
+  debugger;
   return db
     .collection(`users`)
     .add({
@@ -26,7 +37,10 @@ export function saveUser(user) {
       uid: user.uid,
       commercial: true
     })
-    .then(docRef => docRef)
+    .then(docRef => {
+      debugger;
+      console.log(docRef);
+    })
     .catch(function(error) {
       console.error('Error adding document: ', error);
     });
