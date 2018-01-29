@@ -1,24 +1,33 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import {
   BottomNavigation,
-  BottomNavigationItem
+  BottomNavigationItem,
 } from 'material-ui/BottomNavigation';
 import Paper from 'material-ui/Paper';
-import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 import QRCodeIcon from 'material-ui/svg-icons/action/important-devices';
 import ReportsIcon from 'material-ui/svg-icons/communication/business';
 
 import QRCode from '../QRCode/QRCode';
 import Reports from '../Reports/Reports';
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
   state = {
-    selectedIndex: 0
+    selectedIndex: 0,
   };
-  select = index => this.setState({ selectedIndex: index });
 
   renderTab = () => {
-    return this.state.selectedIndex === 0 ? <Reports /> : <QRCode />;
+    return (
+      <Switch>
+        <Route path="/dashboard" exact component={Reports} />
+        <Route path="/dashboard/campaigns" component={QRCode} />
+      </Switch>
+    );
+  };
+
+  handleNavigation = (path, index) => {
+    this.setState({ selectedIndex: index }, this.props.history.push(path));
   };
 
   render() {
@@ -33,12 +42,12 @@ export default class Dashboard extends Component {
             <BottomNavigationItem
               label="Informações"
               icon={<ReportsIcon>Informações</ReportsIcon>}
-              onClick={() => this.select(0)}
+              onClick={() => this.handleNavigation('/dashboard', 0)}
             />
             <BottomNavigationItem
               label="QR Code"
               icon={<QRCodeIcon>QR Code</QRCodeIcon>}
-              onClick={() => this.select(1)}
+              onClick={() => this.handleNavigation('/dashboard/campaigns', 1)}
             />
           </BottomNavigation>
         </Paper>
@@ -51,9 +60,11 @@ const bottomNavContainer = {
   position: 'fixed',
   bottom: 0,
   width: '100%',
-  height: '70px'
+  height: '70px',
 };
 
 const style = {
-  bottomNavContainer
+  bottomNavContainer,
 };
+
+export default withRouter(Dashboard);

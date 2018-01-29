@@ -19,7 +19,7 @@ import './index.css';
 export default class App extends Component {
   state = {
     authed: false,
-    loading: true
+    loading: true,
   };
   componentDidMount() {
     this.removeListener = firebaseAuth().onAuthStateChanged(user => {
@@ -27,13 +27,13 @@ export default class App extends Component {
         saveAuthState(user);
         this.setState({
           authed: true,
-          loading: false
+          loading: false,
         });
       } else {
         clearAuthState();
         this.setState({
           authed: false,
-          loading: false
+          loading: false,
         });
       }
     });
@@ -90,7 +90,7 @@ export default class App extends Component {
             iconStyleRight={{
               display: 'flex',
               alignItems: 'center',
-              marginTop: '0'
+              marginTop: '0',
             }}
           />
           <div className="w-100 h-100">
